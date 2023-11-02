@@ -268,4 +268,4 @@ Use this space to list resources you find helpful and would like to give credit 
 [JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
 [JQuery-url]: https://jquery.com
 [Qt-url]: https://doc.qt.io/qtforpython-6/index.html
-[Qt.io]: https://doc-snapshots.qt.io/qtforpython-6.2/_static/pysidelogo.png
+[Qt.io]: https://img.shields.io/badge/PySide-6-green.svg
