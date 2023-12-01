@@ -2,9 +2,9 @@ import cv2 as cv
 import pandas as pd
 import numpy as np
 
-from Utils.Split import Split
+from Utils import Split
 from Utils.Zoom import Zoom
-from Utils.Checkboard import Checkboard
+from Utils import Checkboard
 
 
 class Image:
@@ -20,9 +20,6 @@ class Image:
         self.__im_c = None
         self.__im_d = None
 
-        self.split = Split()
-        print('asd')
-
     def load_images(self, im_a = None, im_b = None, im_c = None, im_d = None):
         if im_a is not None:
             self.__im_a = im_a
@@ -35,11 +32,11 @@ class Image:
 
         self.__reshape()
 
-    def split_image(self, x_position: float, im_a = None, im_b = None):
+    def split_image(self, x_position: float, im_a = None, im_b = None, size_of_marker = 5):
         if im_a is not None or im_b is not None:
             self.load_images(im_a=im_a, im_b=im_b)
 
-        res = self.split.get_split_img(x_position, self.__im_a, self.__im_b)
+        res = Split.get_split_img(x_position, self.__im_a, self.__im_b, size_of_marker=size_of_marker)
         return res
 
     def checkboard(self, x_chunks: int, y_chunks: int, im_a = None, im_b = None):
@@ -52,7 +49,7 @@ class Image:
         if y_chunks == None:
             y_chunks = x_chunks
 
-        res = Checkboard.checkboard(x_chunks, y_chunks, self.__im_a, self.__im_b)
+        res = Checkboard.get_checkboard_image(x_chunks, y_chunks, self.__im_a, self.__im_b)
         return res
 
     def zoom(self):

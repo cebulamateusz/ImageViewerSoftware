@@ -3,6 +3,5 @@ import pandas as pd
 import numpy as np
 
 
-class Zoom:
-    def __init__(self):
-        print('asd')
+def Zoom():
+    return None
