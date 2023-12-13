@@ -11,8 +11,8 @@ class Image:
     __im_a: np.ndarray
     __im_b: np.ndarray
 
-    __im_c: np.ndarray  # used only for zoom mode
-    __im_d: np.ndarray  # used only for zoom mode
+    __im_c: np.ndarray
+    __im_d: np.ndarray
 
     def __init__(self):
         self.__im_a = None
@@ -20,28 +20,30 @@ class Image:
         self.__im_c = None
         self.__im_d = None
 
-    def load_images(self, im_a = None, im_b = None, im_c = None, im_d = None):
-        if im_a is not None:
-            self.__im_a = im_a
-        if im_b is not None:
-            self.__im_b = im_b
-        if im_c is not None:
-            self.__im_c = im_c
-        if im_d is not None:
-            self.__im_d = im_d
+
+    def load_images(self, path_a: str = None, path_b: str = None, path_c: str = None, path_d: str = None):
+        if path_a is not None:
+            self.__im_a = self.__load_img(path_a)
+        if path_b is not None:
+            self.__im_b = self.__load_img(path_b)
+        if path_c is not None:
+            self.__im_c = self.__load_img(path_c)
+        if path_d is not None:
+            self.__im_d = self.__load_img(path_d)
 
         self.__reshape()
 
-    def split_image(self, x_position: float, im_a = None, im_b = None, size_of_marker = 5):
-        if im_a is not None or im_b is not None:
-            self.load_images(im_a=im_a, im_b=im_b)
+    def split_image(self, x_position: float, path_a: str = None, path_b: str = None, size_of_marker = 5):
+        if path_a is not None or path_b is not None:
+            self.load_images(path_a=path_a, path_b=path_b)
 
         res = Split.get_split_img(x_position, self.__im_a, self.__im_b, size_of_marker=size_of_marker)
         return res
 
-    def checkboard(self, x_chunks: int, y_chunks: int, im_a = None, im_b = None):
-        if im_a != None or im_b != None:
-            self.load_images(im_a=im_a, im_b=im_b)
+
+    def checkboard(self, x_chunks: int, y_chunks: int, path_a: str = None, path_b: str = None):
+        if path_a != None or path_b != None:
+            self.load_images(path_a=path_a, path_b=path_b)
 
         if x_chunks == None:
             return None
@@ -66,3 +68,8 @@ class Image:
 
         if self.__im_a is not None and self.__im_d is not None and self.__im_a.shape != self.__im_d.shape:
             self.__im_d = cv.resize(self.__im_d, self.__im_a.shape, interpolation=cv.INTER_LINEAR)
+
+
+    def __load_img(self, path: str):
+        img = cv.imread(path)
+        return img
