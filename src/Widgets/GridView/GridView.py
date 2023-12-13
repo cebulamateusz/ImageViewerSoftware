@@ -17,9 +17,17 @@ class Ui_GridView(object):
         GridView.resize(1062, 838)
         self.gridLayout = QtWidgets.QGridLayout(GridView)
         self.gridLayout.setObjectName("gridLayout")
+        self.sbNumImages = QtWidgets.QSpinBox(GridView)
+        self.sbNumImages.setObjectName("sbNumImages")
+        self.gridLayout.addWidget(self.sbNumImages, 0, 0, 1, 1)
+        self.pbSetNumImages = QtWidgets.QPushButton(GridView)
+        self.pbSetNumImages.setObjectName("pbSetNumImages")
+        self.gridLayout.addWidget(self.pbSetNumImages, 0, 2, 1, 1)
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout.addItem(spacerItem, 0, 3, 1, 1)
         self.glLayout = QtWidgets.QGridLayout()
         self.glLayout.setObjectName("glLayout")
-        self.gridLayout.addLayout(self.glLayout, 0, 0, 1, 1)
+        self.gridLayout.addLayout(self.glLayout, 1, 0, 1, 4)
 
         self.retranslateUi(GridView)
         QtCore.QMetaObject.connectSlotsByName(GridView)
@@ -27,6 +35,7 @@ class Ui_GridView(object):
     def retranslateUi(self, GridView):
         _translate = QtCore.QCoreApplication.translate
         GridView.setWindowTitle(_translate("GridView", "Form"))
+        self.pbSetNumImages.setText(_translate("GridView", "Set Number of Images"))
 
 
 if __name__ == "__main__":
