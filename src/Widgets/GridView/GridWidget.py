@@ -34,16 +34,15 @@ class GridWidget(QWidget, Ui_GridView):
         """
 
     def close(self):
-        """
-        self.glLayout.removeWidget(self.image1)
-        self.glLayout.removeWidget(self.image2)
-        self.glLayout.removeWidget(self.image3)
-        self.glLayout.removeWidget(self.image4)
-        self.image1.close()
-        self.image2.close()
-        self.image3.close()
-        self.image4.close()
-        """
+        for i in range(0, self.widgetCount):
+            widget = self.imageList[i]
+            self.glLayout.removeWidget(widget)
+            widget.deleteLater()
+        self.widgetCount = self.imageNum
+        if self.imageList:
+            self.imageList.clear()
+            self.imageList = None
+        self.imageList = list()
         super(GridWidget, self).close()
 
     def setImagesOnGrid(self):
