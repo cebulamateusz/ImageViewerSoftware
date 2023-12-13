@@ -2,9 +2,9 @@ import cv2 as cv
 import pandas as pd
 import numpy as np
 
-from Utils import Split
-from Utils.Zoom import Zoom
-from Utils import Checkboard
+from src.Services.Image.Utils import Split
+from src.Services.Image.Utils.Zoom import Zoom
+from src.Services.Image.Utils import Checkboard
 
 
 class Image:
@@ -72,4 +72,5 @@ class Image:
 
     def __load_img(self, path: str):
         img = cv.imread(path)
+        img = cv.cvtColor(img, cv.COLOR_BGR2RGB)
         return img
