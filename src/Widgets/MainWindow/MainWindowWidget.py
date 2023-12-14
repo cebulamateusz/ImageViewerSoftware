@@ -30,12 +30,12 @@ class MainWindowWidget(QMainWindow, Ui_MainWindow):
     @pyqtSlot()
     def __set_slider_widget(self):
         if self.__checkerboardWidget:
-            self.vlView.removeWidget(self.__checkerboardWidget)
             self.__checkerboardWidget.close()
+            self.vlView.removeWidget(self.__checkerboardWidget)
             self.__checkerboardWidget = None
         if self.__gridWidget:
-            self.vlView.removeWidget(self.__gridWidget)
             self.__gridWidget.close()
+            self.vlView.removeWidget(self.__gridWidget)
             self.__gridWidget = None
         if not self.__sliderWidget:
             self.__sliderWidget = SliderWidget()

@@ -42,8 +42,29 @@ class Ui_SliderView(object):
         self.pbLoadImg2.setMinimumSize(QtCore.QSize(0, 50))
         self.pbLoadImg2.setObjectName("pbLoadImg2")
         self.horizontalLayout.addWidget(self.pbLoadImg2)
-        spacerItem2 = QtWidgets.QSpacerItem(100, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        spacerItem2 = QtWidgets.QSpacerItem(50, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem2)
+        self.label = QtWidgets.QLabel(self.groupBox)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
+        self.label.setSizePolicy(sizePolicy)
+        self.label.setObjectName("label")
+        self.horizontalLayout.addWidget(self.label)
+        self.sbMarkerWidth = QtWidgets.QSpinBox(self.groupBox)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.sbMarkerWidth.sizePolicy().hasHeightForWidth())
+        self.sbMarkerWidth.setSizePolicy(sizePolicy)
+        self.sbMarkerWidth.setMinimumSize(QtCore.QSize(82, 0))
+        self.sbMarkerWidth.setMaximum(10)
+        self.sbMarkerWidth.setProperty("value", 5)
+        self.sbMarkerWidth.setObjectName("sbMarkerWidth")
+        self.horizontalLayout.addWidget(self.sbMarkerWidth)
+        spacerItem3 = QtWidgets.QSpacerItem(100, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem3)
         self.verticalLayout.addWidget(self.groupBox)
 
         self.retranslateUi(SliderView)
@@ -52,9 +73,10 @@ class Ui_SliderView(object):
     def retranslateUi(self, SliderView):
         _translate = QtCore.QCoreApplication.translate
         SliderView.setWindowTitle(_translate("SliderView", "Form"))
-        self.lbImage.setText(_translate("SliderView", "TextLabel"))
+        self.lbImage.setText(_translate("SliderView", "Please load images to display"))
         self.pbLoadImg1.setText(_translate("SliderView", "Load Image 1"))
         self.pbLoadImg2.setText(_translate("SliderView", "Load Image 2"))
+        self.label.setText(_translate("SliderView", "Marker width:"))
 
 
 if __name__ == "__main__":

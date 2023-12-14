@@ -30,7 +30,7 @@ class Ui_Image(object):
     def retranslateUi(self, Image):
         _translate = QtCore.QCoreApplication.translate
         Image.setWindowTitle(_translate("Image", "Form"))
-        self.lbImage.setText(_translate("Image", "TextLabel"))
+        self.lbImage.setText(_translate("Image", "Please load images to display"))
         self.pbLoad.setText(_translate("Image", "Load"))
 
 

@@ -12,29 +12,16 @@ class GridWidget(QWidget, Ui_GridView):
     widgetCount: int = 0
     rowCount: int = 1
     colCount: int = 1
-    image1: ImageWidget = None
-    image2: ImageWidget = None
-    image3: ImageWidget = None
-    image4: ImageWidget = None
 
     def __init__(self, *args, obj=None, **kwargs):
         super(GridWidget, self).__init__(*args, **kwargs)
         self.setupUi(self)
-        self.setImagesOnGrid()
         self.sbNumImages.setMinimum(1)
+        self.sbNumImages.setValue(2)
+        self.setImagesOnGrid()
         self.pbSetNumImages.clicked.connect(self.setImagesOnGrid)
         self.dsbZoomFactor.valueChanged.connect(self.change_zoom_factors)
-
-        """
-        self.image1 = ImageWidget()
-        self.image2 = ImageWidget()
-        self.image3 = ImageWidget()
-        self.image4 = ImageWidget()
-        self.glLayout.addWidget(self.image1, 0, 0)
-        self.glLayout.addWidget(self.image2, 0, 1)
-        self.glLayout.addWidget(self.image3, 1, 0)
-        self.glLayout.addWidget(self.image4, 1, 1)
-        """
+        self.doubleclickpos = tuple
 
     def close(self):
         for i in range(0, self.widgetCount):
@@ -43,9 +30,11 @@ class GridWidget(QWidget, Ui_GridView):
             widget.deleteLater()
         self.widgetCount = self.imageNum
         if self.imageList:
+            for el in self.imageList:
+                el: ImageWidget
+                el.close()
             self.imageList.clear()
             self.imageList = None
-        self.imageList = list()
         super(GridWidget, self).close()
 
     def setImagesOnGrid(self):
@@ -61,6 +50,9 @@ class GridWidget(QWidget, Ui_GridView):
             widget.deleteLater()
         self.widgetCount = self.imageNum
         if self.imageList:
+            for el in self.imageList:
+                el: ImageWidget
+                el.close()
             self.imageList.clear()
             self.imageList = None
         self.imageList = list()
@@ -69,6 +61,7 @@ class GridWidget(QWidget, Ui_GridView):
         for z in self.imageList:
             z: ImageWidget
             z.my_signal.connect(self.zoom_in)
+            z.signal_move.connect(self.move_zoomed)
         for i in range(self.rowCount):
             for j in range(self.colCount):
                 index = i * self.colCount + j
@@ -79,9 +72,16 @@ class GridWidget(QWidget, Ui_GridView):
 
     @pyqtSlot(QEvent)
     def zoom_in(self, event):
+        self.doubleclickpos = event.pos()
         for z in self.imageList:
             z: ImageWidget
             z.zoom_in(event)
+
+    @pyqtSlot(QEvent)
+    def move_zoomed(self, event):
+        for z in self.imageList:
+            z: ImageWidget
+            z.zoom_in(event, move=True)
 
     def change_zoom_factors(self):
         for z in self.imageList:
