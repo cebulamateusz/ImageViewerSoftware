@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 
 from src.Services.Image.Utils import Split
-from src.Services.Image.Utils.Zoom import Zoom
+from src.Services.Image.Utils import Zoom
 from src.Services.Image.Utils import Checkboard
 
 
@@ -51,10 +51,18 @@ class Image:
         if y_chunks == None:
             y_chunks = x_chunks
 
+        if self.__im_a is None:
+            self.__im_a = np.zeros(self.__im_b.shape, dtype=np.uint8)
+
+        if self.__im_b is None:
+            self.__im_b = np.zeros(self.__im_a.shape, dtype=np.uint8)
+
         res = Checkboard.get_checkboard_image(x_chunks, y_chunks, self.__im_a, self.__im_b)
         return res
 
-    def zoom(self):
+    def zoom(self, zoom_factor: float, x: float, y: float):
+        if self.__im_a is not None:
+            return Zoom.zoom_image(self.__im_a, zoom_factor, x, y)
         return None
 
 
