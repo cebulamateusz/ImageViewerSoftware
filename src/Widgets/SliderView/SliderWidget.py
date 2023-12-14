@@ -78,7 +78,6 @@ class SliderWidget(QWidget, Ui_SliderView):
 
             # Update the label with the scaled image
             self.lbImage.setPixmap(scaled_pixmap)
-
             #self.adjustSize()
 
 

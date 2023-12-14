@@ -77,6 +77,7 @@ class ImageWidget(QWidget, Ui_Image):
 
         self.__normalized_mp = (mouse_pos.x() / label_width, mouse_pos.y() / label_height)
         img = self.__image_class.zoom(self.__zoom_factor, self.__normalized_mp[0], self.__normalized_mp[1])
+
         if isinstance(img, np.ndarray) and img.size > 1:
             label_size = self.lbImage.size()
             height, width, channel = img.shape
@@ -91,3 +92,4 @@ class ImageWidget(QWidget, Ui_Image):
             self.iszoomed = True
 
         print(f"Relative position within label: ({self.__normalized_mp[0]}, {self.__normalized_mp[1]})")
+
