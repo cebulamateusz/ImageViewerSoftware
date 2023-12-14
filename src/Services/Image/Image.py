@@ -45,6 +45,12 @@ class Image:
         if y_chunks == None:
             y_chunks = x_chunks
 
+        if self.__im_a is None:
+            self.__im_a = np.zeros(self.__im_b.shape, dtype=np.uint8)
+
+        if self.__im_b is None:
+            self.__im_b = np.zeros(self.__im_a.shape, dtype=np.uint8)
+
         res = Checkboard.get_checkboard_image(x_chunks, y_chunks, self.__im_a, self.__im_b)
         return res
 

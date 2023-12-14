@@ -6,6 +6,7 @@ from src.Widgets.Image.ImageWidget import ImageWidget
 import numpy as np
 
 class GridWidget(QWidget, Ui_GridView):
+
     imageList: list = None
     imageNum: int = 4
     widgetCount: int = 0
@@ -22,6 +23,8 @@ class GridWidget(QWidget, Ui_GridView):
         self.setImagesOnGrid()
         self.sbNumImages.setMinimum(1)
         self.pbSetNumImages.clicked.connect(self.setImagesOnGrid)
+        self.dsbZoomFactor.valueChanged.connect(self.change_zoom_factors)
+
         """
         self.image1 = ImageWidget()
         self.image2 = ImageWidget()
@@ -63,6 +66,9 @@ class GridWidget(QWidget, Ui_GridView):
         self.imageList = list()
         for i in range(0, self.imageNum):
             self.imageList.append(ImageWidget())
+        for z in self.imageList:
+            z: ImageWidget
+            z.my_signal.connect(self.zoom_in)
         for i in range(self.rowCount):
             for j in range(self.colCount):
                 index = i * self.colCount + j
@@ -70,6 +76,17 @@ class GridWidget(QWidget, Ui_GridView):
                     self.glLayout.addWidget(self.imageList[index], i, j)
                 else:
                     break
+
+    @pyqtSlot(QEvent)
+    def zoom_in(self, event):
+        for z in self.imageList:
+            z: ImageWidget
+            z.zoom_in(event)
+
+    def change_zoom_factors(self):
+        for z in self.imageList:
+            z: ImageWidget
+            z.set_zoom_factor(self.dsbZoomFactor.value())
 
 
 
