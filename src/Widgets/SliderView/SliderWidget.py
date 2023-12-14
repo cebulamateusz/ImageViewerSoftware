@@ -11,6 +11,7 @@ class SliderWidget(QWidget, Ui_SliderView):
     __image_path1: str = None
     __image_path2: str = None
     __image_class: Image = None
+    __markerWidth: int = 4
 
 
     def __init__(self, *args, obj=None, **kwargs):
@@ -23,6 +24,8 @@ class SliderWidget(QWidget, Ui_SliderView):
         self.resizeEvent = self.on_resize
         self.labelMinSize = self.lbImage.size()
         self.lbImage.setMinimumSize(self.labelMinSize)
+        self.sbMarkerWidth.valueChanged.connect(self.changeMarkerWidth)
+        self.__markerWidth = self.sbMarkerWidth.value()
 
     def loadImage1(self):
         path, _ = QFileDialog.getOpenFileName(self, "Select an image file", "",
@@ -34,6 +37,10 @@ class SliderWidget(QWidget, Ui_SliderView):
 
         print(self.__image_path1)
 
+    def changeMarkerWidth(self):
+        self.__markerWidth = self.sbMarkerWidth.value()
+        self.on_resize(None)
+
     def loadImage2(self):
         path, _ = QFileDialog.getOpenFileName(self, "Select an image file", "",
                                                             "PNG (*.png);;JPG (*.jpg);;All Files (*)")
@@ -43,22 +50,24 @@ class SliderWidget(QWidget, Ui_SliderView):
         print(self.__image_path2)
 
     def get_normalized_position(self, event):
+        if not self.__image_path2 and not self.__image_path1:
+            return
         mouse_pos = event.pos()
         label_width = self.lbImage.width()
         label_height = self.lbImage.height()
 
         self.__normalized_mp = (mouse_pos.x() / label_width, mouse_pos.y() / label_height)
 
-        img = self.__image_class.split_image(self.__normalized_mp[0])
+        img = self.__image_class.split_image(self.__normalized_mp[0], size_of_marker=self.__markerWidth)
         height, width, channel = img.shape
         bytesPerLine = 3 * width
-        qImg = QImage(img.data, width, height, bytesPerLine, QImage.Format_RGB888)
+        qImg = QImage(img.data, width, height, bytesPerLine, QImage.Format_RGB888).scaled(self.lbImage.size())
         self.lbImage.setPixmap(QPixmap(qImg).scaled(self.lbImage.size(), Qt.KeepAspectRatio))
 
         print(f"Relative position within label: ({self.__normalized_mp[0]}, {self.__normalized_mp[1]})")
 
     def load_split_image(self, x: float = 0.5):
-        img = self.__image_class.split_image(x, self.__image_path1, self.__image_path2)
+        img = self.__image_class.split_image(x, self.__image_path1, self.__image_path2, size_of_marker=self.__markerWidth)
         height, width, channel = img.shape
         bytesPerLine = 3 * width
         qImg = QImage(img.data, width, height, bytesPerLine, QImage.Format_RGB888).scaled(self.lbImage.size())
@@ -66,7 +75,7 @@ class SliderWidget(QWidget, Ui_SliderView):
 
     def on_resize(self, event):
         # When the window is resized, update the label size to match the available space
-        img = self.__image_class.split_image(self.__normalized_mp[0])
+        img = self.__image_class.split_image(self.__normalized_mp[0], size_of_marker=self.__markerWidth)
         if isinstance(img, np.ndarray) and img.size > 1:
             label_size = self.lbImage.size()
             height, width, channel = img.shape

@@ -17,7 +17,7 @@
    <item>
     <widget class="QLabel" name="lbImage">
      <property name="text">
-      <string>TextLabel</string>
+      <string>Please load images to display</string>
      </property>
     </widget>
    </item>
