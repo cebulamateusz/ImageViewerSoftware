@@ -61,7 +61,7 @@ class SliderWidget(QWidget, Ui_SliderView):
         img = self.__image_class.split_image(x, self.__image_path1, self.__image_path2)
         height, width, channel = img.shape
         bytesPerLine = 3 * width
-        qImg = QImage(img.data, width, height, bytesPerLine, QImage.Format_RGB888)
+        qImg = QImage(img.data, width, height, bytesPerLine, QImage.Format_RGB888).scaled(self.lbImage.size())
         self.lbImage.setPixmap(QPixmap(qImg).scaled(self.lbImage.size(), Qt.KeepAspectRatio))
 
     def on_resize(self, event):
@@ -71,13 +71,14 @@ class SliderWidget(QWidget, Ui_SliderView):
             label_size = self.lbImage.size()
             height, width, channel = img.shape
             bytesPerLine = 3 * width
-            pixmap = QPixmap.fromImage(QImage(img.data, width, height, bytesPerLine, QImage.Format_RGB888))
+            pixmap = QPixmap.fromImage(QImage(img.data, width, height, bytesPerLine, QImage.Format_RGB888).scaled(self.lbImage.size()))
 
             # Scale the image to the available space while keeping aspect ratio
             scaled_pixmap = pixmap.scaled(label_size, Qt.KeepAspectRatio)
 
             # Update the label with the scaled image
             self.lbImage.setPixmap(scaled_pixmap)
+
             #self.adjustSize()
 
 
