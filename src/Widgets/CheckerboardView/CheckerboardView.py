@@ -38,12 +38,18 @@ class Ui_CheckerboardView(object):
         self.horizontalLayout.addWidget(self.pbLoadImg1)
         spacerItem1 = QtWidgets.QSpacerItem(50, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem1)
+        self.pbSwapImages = QtWidgets.QPushButton(self.groupBox)
+        self.pbSwapImages.setMinimumSize(QtCore.QSize(0, 50))
+        self.pbSwapImages.setObjectName("pbSwapImages")
+        self.horizontalLayout.addWidget(self.pbSwapImages)
+        spacerItem2 = QtWidgets.QSpacerItem(50, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem2)
         self.pbLoadImg2 = QtWidgets.QPushButton(self.groupBox)
         self.pbLoadImg2.setMinimumSize(QtCore.QSize(0, 50))
         self.pbLoadImg2.setObjectName("pbLoadImg2")
         self.horizontalLayout.addWidget(self.pbLoadImg2)
-        spacerItem2 = QtWidgets.QSpacerItem(100, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout.addItem(spacerItem2)
+        spacerItem3 = QtWidgets.QSpacerItem(100, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem3)
         self.verticalLayout.addWidget(self.groupBox)
 
         self.retranslateUi(CheckerboardView)
@@ -54,6 +60,7 @@ class Ui_CheckerboardView(object):
         CheckerboardView.setWindowTitle(_translate("CheckerboardView", "Form"))
         self.lbImage.setText(_translate("CheckerboardView", "CheckerBoard"))
         self.pbLoadImg1.setText(_translate("CheckerboardView", "Load Image 1"))
+        self.pbSwapImages.setText(_translate("CheckerboardView", "Swap Images"))
         self.pbLoadImg2.setText(_translate("CheckerboardView", "Load Image 2"))
 
 

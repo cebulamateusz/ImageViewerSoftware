@@ -74,3 +74,10 @@ class Image:
         img = cv.imread(path)
         img = cv.cvtColor(img, cv.COLOR_BGR2RGB)
         return img
+
+    def load_img(self, path: str = None):
+        if path is not None:
+            self.__im_a = self.__load_img(path)
+        return self.__im_a
+
+
