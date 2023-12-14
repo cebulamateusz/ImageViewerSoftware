@@ -24,6 +24,24 @@ class Image:
 
         self.__reshape()
 
+    def swap_images(self):
+        if self.__im_a is not None and self.__im_b is not None:
+            a = self.__im_a
+            self.__im_a = self.__im_b
+            self.__im_b = a
+            return
+
+        if self.__im_a is None:
+            self.__im_a = self.__im_b
+            self.__im_b = None
+            return
+
+        if self.__im_b is None:
+            self.__im_b = self.__im_a
+            self.__im_a = None
+            return
+
+
     def free_memory(self):
         self.__im_a = None
         self.__im_b = None
