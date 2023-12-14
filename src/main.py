@@ -1,5 +1,7 @@
 import sys
 import os
+
+from PyQt5.QtCore import QFile, QTextStream
 from PyQt5.QtWidgets import QApplication
 import logging
 import traceback
@@ -10,6 +12,10 @@ def global_exception_handler():
     logging.error(error_message)
 
 app = QApplication(sys.argv)
+file = QFile(".\\darkstyle.qss")
+file.open(QFile.ReadOnly | QFile.Text)
+stream = QTextStream(file)
+app.setStyleSheet(stream.readAll())
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 sys.excepthook = global_exception_handler
